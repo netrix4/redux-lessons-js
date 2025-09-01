@@ -1,26 +1,30 @@
-import { React } from "react";
-
 import { connect } from "react-redux";
-
 import { decrement, increment } from "../store";
-export const Counter = (props) => {
+
+export const Counter = ({ increment, decrement, clickCounter, userName }) => {
   const onIncrement = () => {
-    props.increment();
+    increment();
   };
   const onDecrement = () => {
-    props.decrement();
+    decrement();
   };
   return (
     <div>
       <p>Esto es Counter</p>
       <button onClick={onIncrement}>+</button>
       <button onClick={onDecrement}>-</button>
-      <h1>{props.state}</h1>
-      {/* <h1>{props.state.log}</h1> */}
+      <h1>{clickCounter}</h1>
+
+      <h1>{userName}</h1>
     </div>
   );
 };
-const mapSateToProps = (state) => ({ state });
+const mapSateToProps = (state) => ({
+  increment,
+  decrement,
+  clickCounter: state.clickCounter,
+  userName: state.user.name,
+});
 const mapDispatchToProps = (dispatch) => ({
   increment: () => dispatch(increment()),
   decrement: () => dispatch(decrement()),
